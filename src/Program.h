@@ -8,6 +8,7 @@
 #include <memory>
 #include "helper.h"
 #include <unordered_map>
+#include "glm.hpp"
 
 class Program {
 public:
@@ -23,9 +24,10 @@ public:
     void compile();
     void bind() const;
 
-    void setUniform(const std::string& name, float f0, float f1, float f2, float f3);
-    void setUniform(const std::string& name, float f0, float f1, float f2);
-    void setUniform(const std::string& name, float f);
+    void setUniform(const std::string &name, float f0, float f1, float f2, float f3);
+    void setUniform(const std::string &name, float f0, float f1, float f2);
+    void setUniform(const std::string &name, float f0);
+    void setUniform(const std::string &name, const glm::mat4x4& mat);
 private:
     uint32_t m_programId;
     bool m_compiled;

@@ -105,3 +105,8 @@ void Program::setUniform(const std::string &name, float f0) {
     int loc = getUniformAddr(name);
     GL_CALL(glUniform1f(loc, f0));
 }
+
+void Program::setUniform(const std::string &name, const glm::mat4x4 &mat) {
+    int loc = getUniformAddr(name);
+    GL_CALL(glUniformMatrix4fv(loc, 1, false, &mat[0][0]));
+}
