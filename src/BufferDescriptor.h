@@ -5,9 +5,7 @@
 #ifndef OPENGL_BUFFERDESCRIPTOR_H
 #define OPENGL_BUFFERDESCRIPTOR_H
 
-#include <vector>
 #include <cassert>
-#include "helper.h"
 #include "VertexBuffer.h"
 #include "IndexBuffer.h"
 
@@ -18,7 +16,7 @@ public:
 
     template<class T> void addType(int count){assert(false);}
     void bind() const;
-    void sendData(const IndexBuffer& ib, const VertexBuffer& vb);
+    void sendData(const IndexBuffer& ib, const VertexBuffer& vb) const;
     size_t getSize() const;
 private:
     struct Element{

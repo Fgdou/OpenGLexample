@@ -68,7 +68,7 @@ Window::~Window() {
     glfwDestroyWindow(m_window);
 }
 
-void Window::clear() {
+void Window::clear() const {
     GL_CALL(glClear(GL_COLOR_BUFFER_BIT));
 }
 

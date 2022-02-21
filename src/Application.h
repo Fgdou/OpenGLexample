@@ -11,6 +11,7 @@
 #include "BufferDescriptor.h"
 #include "Program.h"
 #include "Texture.h"
+#include "Renderer.h"
 
 class Application {
 public:
@@ -21,6 +22,7 @@ public:
 
 private:
     Window window{500, 500, "My OpenGL App"};
+    Renderer renderer;
     VertexBuffer vb;
     IndexBuffer ib;
     BufferDescriptor bd;

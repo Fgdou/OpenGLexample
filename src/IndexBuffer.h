@@ -14,10 +14,12 @@ public:
     IndexBuffer();
     ~IndexBuffer();
 
-    void bind() const;
-    void setData(const std::vector<uint32_t>& indexes) const;
-private:
+    int count() const;
 
+    void bind() const;
+    void setData(const std::vector<uint32_t>& indexes);
+private:
+    int m_count = 0;
     uint32_t m_bufferId;
 };
 #endif //OPENGL_INDEXBUFFER_H

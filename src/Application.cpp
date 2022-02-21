@@ -34,9 +34,6 @@ void Application::run() {
     while(!window.shouldClose()){
         i += di;
 
-        window.clear();
-        bd.bind();
-        bd.sendData(ib, vb);
         texture.bind(0);
 
         auto rotate = glm::rotate(glm::mat4(1.0f), i, glm::vec3{0.0, 1.0, 0.0});
@@ -44,7 +41,9 @@ void Application::run() {
         auto mvp = rotate * translate;
 
         program.setUniform("MVP", mvp);
-        GL_CALL(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0));
+
+        window.clear();
+        renderer.render(window, program, bd, vb, ib);
         window.draw();
     }
 }

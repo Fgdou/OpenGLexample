@@ -5,8 +5,8 @@
 #ifndef OPENGL_PROGRAM_H
 #define OPENGL_PROGRAM_H
 
-#include <memory>
 #include "helper.h"
+#include <string>
 #include <unordered_map>
 #include "glm.hpp"
 

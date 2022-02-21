@@ -22,7 +22,7 @@ public:
     void setVSync(bool activated);
 
     void draw();
-    void clear();
+    void clear() const;
 
 private:
     void initGlad();

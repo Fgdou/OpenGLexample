@@ -27,7 +27,7 @@ size_t BufferDescriptor::getSize() const {
     return size;
 }
 
-void BufferDescriptor::sendData(const IndexBuffer& ib, const VertexBuffer& vb) {
+void BufferDescriptor::sendData(const IndexBuffer& ib, const VertexBuffer& vb) const {
     bind();
     ib.bind();
     vb.bind();

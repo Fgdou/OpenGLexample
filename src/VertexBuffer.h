@@ -5,9 +5,9 @@
 #ifndef OPENGL_VERTEXBUFFER_H
 #define OPENGL_VERTEXBUFFER_H
 
+#include "helper.h"
 #include <vector>
 #include <cassert>
-#include "helper.h"
 
 class VertexBuffer {
 public:
