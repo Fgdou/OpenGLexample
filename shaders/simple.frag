@@ -1,9 +1,10 @@
 #version 450 core
 
 layout (location = 0) out vec4 color;
+layout (location = 0) in vec2 texPos;
 
-uniform float u_r;
+uniform sampler2D tex;
 
 void main(){
-    color = vec4(u_r, 1.0f, 0.0f, 1.0f);
+    color = texture(tex, texPos);
 }

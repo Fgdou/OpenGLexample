@@ -8,6 +8,7 @@
 #include "VertexBuffer.h"
 #include "IndexBuffer.h"
 #include "BufferDescriptor.h"
+#include "Texture.h"
 
 int main() {
     std::cout << "Hello, World!" << std::endl;
@@ -42,10 +43,10 @@ int main() {
 
     {
         std::vector<float> vecs = {
-                -0.5f, -0.5f,
-                0.5f, -0.5f,
-                -0.5f, 0.5f,
-                0.5f, 0.5f,
+                -0.5f, -0.5f, 0.0f, 0.0f,
+                0.5f, -0.5f, 1.0f, 0.0f,
+                -0.5f, 0.5f, 0.0f, 1.0f,
+                0.5f, 0.5f, 1.0f, 1.0f,
         };
         std::vector<uint32_t> indexes = {
                 0, 1, 2,
@@ -53,6 +54,7 @@ int main() {
         };
 
         BufferDescriptor bd;
+        bd.addType<float>(2);
         bd.addType<float>(2);
 
         VertexBuffer vb;
@@ -69,20 +71,13 @@ int main() {
         program.compile();
         program.bind();
 
-        float r = 0.0f;
-        float dr = .05f;
+        Texture texture("../assets/dirt.png");
 
         while (!glfwWindowShouldClose(window)) {
-            r += dr;
-            if(r > 1.0f)
-                dr = -dr;
-            if(r < 0.0f)
-                dr = -dr;
-
             GL_CALL(glClear(GL_COLOR_BUFFER_BIT));
 
             bd.bind();
-            program.setUniform("u_r", r);
+            texture.bind(0);
 
             GL_CALL(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0));
 
