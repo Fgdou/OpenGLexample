@@ -5,7 +5,6 @@
 #ifndef OPENGL_APPLICATION_H
 #define OPENGL_APPLICATION_H
 
-
 #include "Window.h"
 #include "VertexBuffer.h"
 #include "IndexBuffer.h"
@@ -16,7 +15,7 @@
 class Application {
 public:
     Application();
-    ~Application();
+    ~Application() = default;
 
     void run();
 
@@ -26,7 +25,7 @@ private:
     IndexBuffer ib;
     BufferDescriptor bd;
     Program program;
-    Texture texture;
+    Texture texture{"../assets/dirt.png"};
 
     float i = 0;
     float di = .01;

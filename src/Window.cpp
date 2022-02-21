@@ -7,6 +7,7 @@
 #include "Window.h"
 
 static bool glfw_initiated = false;
+static bool glad_initiated = false;
 
 Window::Window(int width, int height, const std::string &name)
     : m_shouldClose(false), m_window(nullptr), m_width(width), m_height(height)
@@ -31,6 +32,8 @@ Window::Window(int width, int height, const std::string &name)
     glfwMakeContextCurrent(m_window);
     glfwSetWindowUserPointer(m_window, this);
     setVSync(true);
+
+    initGlad();
 }
 
 void Window::setVSync(bool activated) {
@@ -63,4 +66,21 @@ int Window::getWidth() const {
 
 Window::~Window() {
     glfwDestroyWindow(m_window);
+}
+
+void Window::clear() {
+    GL_CALL(glClear(GL_COLOR_BUFFER_BIT));
+}
+
+void Window::initGlad() {
+    if(glad_initiated)
+        return;
+    glad_initiated = true;
+    if(!gladLoadGLLoader((GLADloadproc) glfwGetProcAddress)) {
+        throw std::runtime_error("failed to init glad");
+    }
+    std::cout << "OpenGL " << glGetString(GL_VERSION)
+              << ' ' << glGetString(GL_RENDERER)
+              << std::endl;
+    glViewport(0, 0, getWidth(), getHeight());
 }

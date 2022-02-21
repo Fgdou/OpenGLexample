@@ -5,7 +5,7 @@
 #ifndef OPENGL_WINDOW_H
 #define OPENGL_WINDOW_H
 
-#include "GLFW/glfw3.h"
+#include "helper.h"
 
 #include <string>
 
@@ -22,8 +22,11 @@ public:
     void setVSync(bool activated);
 
     void draw();
+    void clear();
 
 private:
+    void initGlad();
+
     GLFWwindow* m_window;
     bool m_shouldClose;
     int m_height, m_width;
