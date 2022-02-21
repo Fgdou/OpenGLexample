@@ -65,7 +65,7 @@ int main() {
         while (!window.shouldClose()) {
             i += di;
 
-            GL_CALL(glClear(GL_COLOR_BUFFER_BIT));
+            window.clear();
 
             bd.bind();
             texture.bind(0);
