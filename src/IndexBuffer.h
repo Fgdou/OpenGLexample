@@ -15,7 +15,7 @@ public:
     ~IndexBuffer();
 
     void bind() const;
-    void setData(std::vector<uint32_t>& indexes) const;
+    void setData(const std::vector<uint32_t>& indexes) const;
 private:
 
     uint32_t m_bufferId;

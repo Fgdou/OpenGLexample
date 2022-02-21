@@ -18,7 +18,7 @@ void IndexBuffer::bind() const {
     GL_CALL(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_bufferId));
 }
 
-void IndexBuffer::setData(std::vector<uint32_t> &indexes) const {
+void IndexBuffer::setData(const std::vector<uint32_t> &indexes) const {
     bind();
     GL_CALL(glad_glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint32_t)*indexes.size(), indexes.data(), GL_STATIC_DRAW));
 }

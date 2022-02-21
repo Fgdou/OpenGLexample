@@ -11,26 +11,13 @@
 #include "Texture.h"
 
 #include "gtc/matrix_transform.hpp"
+#include "Window.h"
 
 int main() {
     std::cout << "Hello, World!" << std::endl;
 
-    if(glfwInit() != GLFW_TRUE)
-        throw std::runtime_error("failed to init glfw");
+    Window window(500, 500, "OpenGL");
 
-    glfwWindowHint(GLFW_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_VERSION_MINOR, 3);
-
-    auto window = glfwCreateWindow(500, 500, "Test", nullptr, nullptr);
-
-    if(window == nullptr) {
-        const char* desc;
-        glfwGetError(&desc);
-        std::cout << "Error: " << desc << std::endl;
-        throw std::runtime_error("failed to create window");
-    }
-    glfwMakeContextCurrent(window);
-    glfwSwapInterval(1);
 
     if(!gladLoadGLLoader((GLADloadproc) glfwGetProcAddress)) {
         throw std::runtime_error("failed to init glad");
@@ -44,26 +31,23 @@ int main() {
 
 
     {
-        std::vector<float> vecs = {
+        VertexBuffer vb;
+        vb.setData(std::vector<float>{
                 -0.5f, -0.5f, 0.0f, 0.0f,
                 0.5f, -0.5f, 1.0f, 0.0f,
                 -0.5f, 0.5f, 0.0f, 1.0f,
                 0.5f, 0.5f, 1.0f, 1.0f,
-        };
-        std::vector<uint32_t> indexes = {
+        });
+
+        IndexBuffer ib;
+        ib.setData(std::vector<uint32_t>{
                 0, 1, 2,
                 1, 2, 3,
-        };
+        });
 
         BufferDescriptor bd;
         bd.addType<float>(2);
         bd.addType<float>(2);
-
-        VertexBuffer vb;
-        vb.setData(vecs);
-
-        IndexBuffer ib;
-        ib.setData(indexes);
 
         bd.sendData(ib, vb);
 
@@ -75,10 +59,10 @@ int main() {
 
         Texture texture("../assets/dirt.png");
 
-        float i=0;
+        float i = 0;
         float di = .01;
 
-        while (!glfwWindowShouldClose(window)) {
+        while (!window.shouldClose()) {
             i += di;
 
             GL_CALL(glClear(GL_COLOR_BUFFER_BIT));
@@ -88,20 +72,17 @@ int main() {
 
             auto rotate = glm::rotate(glm::mat4(1.0f), i, glm::vec3{0.0, 1.0, 0.0});
             auto translate = glm::translate(glm::mat4(1.0f), glm::vec3{0.0f, 0.0f, 0.0f});
-            auto mvp = rotate*translate;
+            auto mvp = rotate * translate;
 
             program.setUniform("MVP", mvp);
             GL_CALL(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0));
 
-
-            glfwSwapBuffers(window);
-            glfwPollEvents();
+            window.draw();
         }
     }
 
 
 
-    glfwDestroyWindow(window);
     glfwTerminate();
 
     return 0;

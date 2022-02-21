@@ -17,6 +17,8 @@ std::string Program::openShaderFile(const std::string& path){
     std::stringstream buff;
     buff << file.rdbuf();
 
+    file.close();
+
     return buff.str();
 }
 uint32_t Program::compileShader(const std::string& path, GLenum type){

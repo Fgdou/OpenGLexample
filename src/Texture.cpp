@@ -23,19 +23,19 @@ Texture::Texture(const std::string &path)
     : m_shaderId(0), m_height(0), m_width(0), m_path(path)
 {
     openPng(path);
-    glGenTextures(1, &m_shaderId);
-    glBindTexture(GL_TEXTURE_2D, m_shaderId);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+    GL_CALL(glGenTextures(1, &m_shaderId));
+    GL_CALL(glBindTexture(GL_TEXTURE_2D, m_shaderId));
+    GL_CALL(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR));
+    GL_CALL(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
+    GL_CALL(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER));
+    GL_CALL(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER));
 
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, m_width, m_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, m_data.data());
+    GL_CALL(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, m_width, m_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, m_data.data()));
     //glGenerateMipmap(GL_TEXTURE_2D);
 }
 
 Texture::~Texture() {
-    glad_glDeleteTextures(1, &m_shaderId);
+    GL_CALL(glDeleteTextures(1, &m_shaderId));
 }
 
 std::ostream &operator<<(std::ostream &os, const Texture &txt) {
