@@ -1,5 +1,6 @@
 # OpenGL Example
-Simple opengl engine for training
+![](example.gif)
+Simple opengl engine for learning purposes
 
 ## Compile and run
 ```shell
