@@ -8,7 +8,8 @@
 #include "Application.h"
 #include "glm.hpp"
 #include "gtc/matrix_transform.hpp"
-#include "Block.h"
+#include "Entity/Block.h"
+#include "memory"
 
 
 Application::Application(){
@@ -32,7 +33,9 @@ Application::Application(){
 }
 
 void Application::run() {
-    Block block{{0, 0, -3}, {0, 0}};
+    std::unique_ptr<Entity> block1 = std::make_unique<Block>(glm::vec3{0, 0, -3}, glm::vec2{0, 0});
+    std::unique_ptr<Entity> block2 = std::make_unique<Block>(glm::vec3{1, -1, -4}, glm::vec2{0, 0});
+
     Camera cam{{0, 0, 0}, {0, 0}, 90, window->getRatio()};
     while(!window->shouldClose()){
 
@@ -53,10 +56,12 @@ void Application::run() {
 //        renderer.render(window, program, bd, vb, ib);
 //        window.draw();
 
-        block.getRot() = glm::vec2{0, i};
+        block1->getRot() = glm::vec2{0, i};
+        block2->getRot() = glm::vec2{i, i};
 
         window->clear();
-        block.draw(*window, renderer, cam);
+        block1->draw(*window, renderer, cam);
+        block2->draw(*window, renderer, cam);
         window->draw();
     }
 }

@@ -5,22 +5,19 @@
 #ifndef OPENGL_BLOCK_H
 #define OPENGL_BLOCK_H
 
-#include "helper.h"
-#include "Texture.h"
-#include "BufferDescriptor.h"
-#include "Program.h"
-#include "Camera.h"
-#include "Renderer.h"
+#include "../helper.h"
+#include "../Texture.h"
+#include "../BufferDescriptor.h"
+#include "../Program.h"
+#include "../Camera.h"
+#include "../Renderer.h"
+#include "Entity.h"
 
-class Block {
+class Block: public Entity {
 public:
     Block(const glm::vec3& pos, const glm::vec2& rot);
-    void draw(const Window& window, const Renderer& renderer, const Camera& cam);
+    virtual void draw(const Window& window, const Renderer& renderer, const Camera& cam) override;
 
-    glm::vec3& getPos();
-    glm::vec2& getRot();
-
-    glm::mat4 getMat() const;
 private:
     struct Face{
         std::vector<glm::vec4> points;
@@ -31,9 +28,6 @@ private:
     static Face getCube(const glm::mat4& rotation);
     std::vector<Face> getFaces();
     static Face getDefaultFace();
-
-    glm::vec3 pos;
-    glm::vec2 rot;
 
     Texture m_texture{"../assets/dirt.png"};
     Program m_program;

@@ -14,17 +14,21 @@
 #include "Window/Window.h"
 #include "Application.h"
 
+#include <thread>
+
 int main() {
 
 
     {
-        Application app;
-        app.run();
+        Application app1;
+        app1.run();
     }
 
 
 
     glfwTerminate();
+
+    std::cout << "Exited successfully" << std::endl;
 
     return 0;
 }

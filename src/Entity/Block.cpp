@@ -6,7 +6,7 @@
 #include "gtc/matrix_transform.hpp"
 
 Block::Block(const glm::vec3 &pos, const glm::vec2 &rot)
-    : pos(pos), rot(rot)
+    : Entity(pos, rot)
 {
     m_program.addShader("../shaders/simple.vert", Program::VERTEX);
     m_program.addShader("../shaders/simple.frag", Program::FRAGMENT);
@@ -98,19 +98,4 @@ void Block::draw(const Window& window, const Renderer &renderer, const Camera &c
 
     m_program.setUniform("MVP", mvp);
     renderer.render(window, m_program, m_bd, m_vb, m_ib);
-}
-
-glm::mat4 Block::getMat() const {
-    auto rotateY = glm::rotate(glm::mat4(1.0f), rot.y, {0, 1, 0});
-    auto rotateX = glm::rotate(glm::mat4(1.0f),rot.x, {1, 0, 0});
-    auto translate = glm::translate(glm::mat4(1.0f), pos);
-    return translate*rotateX*rotateY;
-}
-
-glm::vec3& Block::getPos() {
-    return pos;
-}
-
-glm::vec2& Block::getRot() {
-    return rot;
 }
