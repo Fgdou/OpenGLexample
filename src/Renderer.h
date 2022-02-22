@@ -10,6 +10,9 @@
 
 class Renderer {
 public:
+    Renderer(const Window& window);
+public:
+    void initGlad(const Window& window);
     void render(const Window& window, const Program& prog, const BufferDescriptor& bf, const VertexBuffer& vb, const IndexBuffer& ib) const;
 };
 

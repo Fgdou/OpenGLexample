@@ -22,7 +22,7 @@ public:
 
 private:
     Window window{1000, 1000, "My OpenGL App"};
-    Renderer renderer;
+    Renderer renderer{window};
     VertexBuffer vb;
     IndexBuffer ib;
     BufferDescriptor bd;

@@ -28,7 +28,6 @@ public:
     float getRatio() const;
 
 private:
-    void initGlad();
     static void resized(GLFWwindow *window, int width, int height);
 
     GLFWwindow* m_window;
