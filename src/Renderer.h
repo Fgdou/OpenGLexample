@@ -6,7 +6,7 @@
 
 #include "BufferDescriptor.h"
 #include "Program.h"
-#include "Window.h"
+#include "Window/Window.h"
 
 class Renderer {
 public:

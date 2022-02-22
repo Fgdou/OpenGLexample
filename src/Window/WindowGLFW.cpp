@@ -4,12 +4,12 @@
 
 #include <stdexcept>
 #include <iostream>
-#include "Window.h"
+#include "WindowGLFW.h"
 
 static bool glfw_initiated = false;
 
-Window::Window(int width, int height, const std::string &name)
-    : m_shouldClose(false), m_window(nullptr), m_width(width), m_height(height), m_hasResized(false)
+WindowGLFW::WindowGLFW(int width, int height, const std::string &name)
+    : Window(width, height, name), m_window(nullptr)
 {
     if(!glfw_initiated){
         if(glfwInit() != GLFW_TRUE)
@@ -35,7 +35,7 @@ Window::Window(int width, int height, const std::string &name)
     glfwSetWindowSizeCallback(m_window, resized);
 }
 
-void Window::setVSync(bool activated) {
+void WindowGLFW::setVSync(bool activated) {
     glfwMakeContextCurrent(m_window);
     if(activated)
         glfwSwapInterval(1);
@@ -43,7 +43,7 @@ void Window::setVSync(bool activated) {
         glfwSwapInterval(0);
 }
 
-void Window::draw() {
+void WindowGLFW::draw() {
     glfwPollEvents();
     glfwSwapBuffers(m_window);
 
@@ -51,43 +51,18 @@ void Window::draw() {
         m_shouldClose = true;
 }
 
-bool Window::shouldClose() const {
-    return m_shouldClose;
-}
-
-int Window::getHeight() const {
-    return m_height;
-}
-
-int Window::getWidth() const {
-    return m_width;
-}
-
-Window::~Window() {
+WindowGLFW::~WindowGLFW() {
     glfwDestroyWindow(m_window);
 }
 
-void Window::clear() const {
+void WindowGLFW::clear() const {
     GL_CALL(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
 }
-
-float Window::getRatio() const {
-    return (float)m_width/(float)m_height;
-}
-
-void Window::resized(GLFWwindow *window, int width, int height) {
-    auto w = reinterpret_cast<Window*>(glfwGetWindowUserPointer(window));
+void WindowGLFW::resized(GLFWwindow *window, int width, int height) {
+    auto w = reinterpret_cast<WindowGLFW*>(glfwGetWindowUserPointer(window));
     w->m_width = width;
     w->m_height = height;
 
     glViewport(0, 0, width, height);
     w->m_hasResized = true;
-}
-
-bool Window::hasResized() {
-    if(m_hasResized){
-        m_hasResized = false;
-        return true;
-    }
-    return false;
 }

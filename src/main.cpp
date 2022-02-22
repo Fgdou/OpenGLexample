@@ -11,7 +11,7 @@
 #include "Texture.h"
 
 #include "gtc/matrix_transform.hpp"
-#include "Window.h"
+#include "Window/Window.h"
 #include "Application.h"
 
 int main() {

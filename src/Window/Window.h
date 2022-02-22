@@ -5,14 +5,14 @@
 #ifndef OPENGL_WINDOW_H
 #define OPENGL_WINDOW_H
 
-#include "helper.h"
+#include "../helper.h"
 
 #include <string>
 
 class Window {
 public:
     Window(int width, int height, const std::string& name);
-    ~Window();
+    virtual ~Window(){};
 
     int getWidth() const;
     int getHeight() const;
@@ -20,17 +20,13 @@ public:
     bool shouldClose() const;
     bool hasResized();
 
-    void setVSync(bool activated);
-
-    void draw();
-    void clear() const;
+    virtual void setVSync(bool activated) = 0;
+    virtual void draw() = 0;
+    virtual void clear() const = 0;
 
     float getRatio() const;
 
-private:
-    static void resized(GLFWwindow *window, int width, int height);
-
-    GLFWwindow* m_window;
+protected:
     bool m_shouldClose;
     bool m_hasResized;
     int m_height, m_width;

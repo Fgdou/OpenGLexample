@@ -5,13 +5,14 @@
 #ifndef OPENGL_APPLICATION_H
 #define OPENGL_APPLICATION_H
 
-#include "Window.h"
+#include "Window/WindowGLFW.h"
 #include "VertexBuffer.h"
 #include "IndexBuffer.h"
 #include "BufferDescriptor.h"
 #include "Program.h"
 #include "Texture.h"
 #include "Renderer.h"
+#include <memory>
 
 class Application {
 public:
@@ -21,8 +22,8 @@ public:
     void run();
 
 private:
-    Window window{1000, 1000, "My OpenGL App"};
-    Renderer renderer{window};
+    std::unique_ptr<Window> window = std::make_unique<WindowGLFW>(1000, 600, "My OpenGL App");
+    Renderer renderer{*window};
     VertexBuffer vb;
     IndexBuffer ib;
     BufferDescriptor bd;

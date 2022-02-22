@@ -33,11 +33,11 @@ Application::Application(){
 
 void Application::run() {
     Block block{{0, 0, -3}, {0, 0}};
-    Camera cam{{0, 0, 0}, {0, 0}, 90, window.getRatio()};
-    while(!window.shouldClose()){
+    Camera cam{{0, 0, 0}, {0, 0}, 90, window->getRatio()};
+    while(!window->shouldClose()){
 
-        if(window.hasResized())
-            cam.updateRatio(window.getRatio());
+        if(window->hasResized())
+            cam.updateRatio(window->getRatio());
 
         i += di;
 //
@@ -55,8 +55,8 @@ void Application::run() {
 
         block.getRot() = glm::vec2{0, i};
 
-        window.clear();
-        block.draw(window, renderer, cam);
-        window.draw();
+        window->clear();
+        block.draw(*window, renderer, cam);
+        window->draw();
     }
 }
