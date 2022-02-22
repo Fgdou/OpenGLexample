@@ -18,17 +18,22 @@ public:
     int getHeight() const;
 
     bool shouldClose() const;
+    bool hasResized();
 
     void setVSync(bool activated);
 
     void draw();
     void clear() const;
 
+    float getRatio() const;
+
 private:
     void initGlad();
+    static void resized(GLFWwindow *window, int width, int height);
 
     GLFWwindow* m_window;
     bool m_shouldClose;
+    bool m_hasResized;
     int m_height, m_width;
 };
 

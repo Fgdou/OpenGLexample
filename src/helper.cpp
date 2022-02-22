@@ -5,6 +5,7 @@
 #include <stdexcept>
 #include "helper.h"
 #include <string>
+#include "gtx/string_cast.hpp"
 
 
 void detectError(int line, const char* file){
@@ -25,4 +26,13 @@ void detectError(int line, const char* file){
         }
         throw std::runtime_error("OpenGL(" + error + ") error " + file + ":" + std::to_string(line));
     }
+}
+
+std::ostream& operator<<(std::ostream& os, const glm::vec3& vec){
+    os << glm::to_string(vec);
+    return os;
+}
+std::ostream& operator<<(std::ostream& os, const glm::vec4& vec){
+    os << glm::to_string(vec);
+    return os;
 }

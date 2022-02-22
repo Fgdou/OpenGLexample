@@ -21,7 +21,7 @@ public:
     void run();
 
 private:
-    Window window{500, 500, "My OpenGL App"};
+    Window window{1000, 1000, "My OpenGL App"};
     Renderer renderer;
     VertexBuffer vb;
     IndexBuffer ib;

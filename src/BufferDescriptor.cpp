@@ -3,6 +3,7 @@
 //
 
 #include "BufferDescriptor.h"
+#include "glm.hpp"
 
 BufferDescriptor::BufferDescriptor()
     : m_id(0)
@@ -34,7 +35,7 @@ void BufferDescriptor::sendData(const IndexBuffer& ib, const VertexBuffer& vb) c
 
     auto stride = getSize();
     uint32_t i = 0;
-    uint32_t offset = 0;
+    size_t offset = 0;
 
     for(const auto& e : m_elements){
         GL_CALL(glEnableVertexAttribArray(i));
@@ -52,6 +53,14 @@ void BufferDescriptor::addType<float>(int count) {
                                  GL_FLOAT,
                                  count
                          });
+}
+template<>
+void BufferDescriptor::addType<glm::vec4>(int count) {
+    addType<float>(4*count);
+}
+template<>
+void BufferDescriptor::addType<glm::vec2>(int count) {
+    addType<float>(2*count);
 }
 template<>
 void BufferDescriptor::addType<uint32_t>(int count) {

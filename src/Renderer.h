@@ -10,7 +10,7 @@
 
 class Renderer {
 public:
-    void render(const Window& window, const Program& prog, const BufferDescriptor& bf, const VertexBuffer& vb, const IndexBuffer& ib);
+    void render(const Window& window, const Program& prog, const BufferDescriptor& bf, const VertexBuffer& vb, const IndexBuffer& ib) const;
 };
 
 

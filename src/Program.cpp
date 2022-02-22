@@ -96,19 +96,23 @@ int Program::getUniformAddr(const std::string &name) {
 }
 
 void Program::setUniform(const std::string &name, float f0, float f1, float f2, float f3) {
+    bind();
     int loc = getUniformAddr(name);
     GL_CALL(glUniform4f(loc, f0, f1, f2, f3));
 }
 void Program::setUniform(const std::string &name, float f0, float f1, float f2) {
+    bind();
     int loc = getUniformAddr(name);
     GL_CALL(glUniform3f(loc, f0, f1, f2));
 }
 void Program::setUniform(const std::string &name, float f0) {
+    bind();
     int loc = getUniformAddr(name);
     GL_CALL(glUniform1f(loc, f0));
 }
 
 void Program::setUniform(const std::string &name, const glm::mat4x4 &mat) {
+    bind();
     int loc = getUniformAddr(name);
     GL_CALL(glUniformMatrix4fv(loc, 1, false, &mat[0][0]));
 }

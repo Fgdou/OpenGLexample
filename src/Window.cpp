@@ -10,7 +10,7 @@ static bool glfw_initiated = false;
 static bool glad_initiated = false;
 
 Window::Window(int width, int height, const std::string &name)
-    : m_shouldClose(false), m_window(nullptr), m_width(width), m_height(height)
+    : m_shouldClose(false), m_window(nullptr), m_width(width), m_height(height), m_hasResized(false)
 {
     if(!glfw_initiated){
         if(glfwInit() != GLFW_TRUE)
@@ -32,6 +32,8 @@ Window::Window(int width, int height, const std::string &name)
     glfwMakeContextCurrent(m_window);
     glfwSetWindowUserPointer(m_window, this);
     setVSync(true);
+
+    glfwSetWindowSizeCallback(m_window, resized);
 
     initGlad();
 }
@@ -69,7 +71,7 @@ Window::~Window() {
 }
 
 void Window::clear() const {
-    GL_CALL(glClear(GL_COLOR_BUFFER_BIT));
+    GL_CALL(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
 }
 
 void Window::initGlad() {
@@ -83,4 +85,27 @@ void Window::initGlad() {
               << ' ' << glGetString(GL_RENDERER)
               << std::endl;
     glViewport(0, 0, getWidth(), getHeight());
+    glEnable(GL_DEPTH_TEST);
+    glDepthFunc(GL_LESS);
+}
+
+float Window::getRatio() const {
+    return (float)m_width/(float)m_height;
+}
+
+void Window::resized(GLFWwindow *window, int width, int height) {
+    auto w = reinterpret_cast<Window*>(glfwGetWindowUserPointer(window));
+    w->m_width = width;
+    w->m_height = height;
+
+    glViewport(0, 0, width, height);
+    w->m_hasResized = true;
+}
+
+bool Window::hasResized() {
+    if(m_hasResized){
+        m_hasResized = false;
+        return true;
+    }
+    return false;
 }
