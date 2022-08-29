@@ -4,7 +4,7 @@ Simple opengl engine for learning purposes
 
 ## Compile and run
 ```shell
-git clone https://github.com/Fgdou/OpenGLexample/
+git clone --recurse-submodules https://github.com/Fgdou/OpenGLexample/
 cd OpenGLexample
 mkdir build
 cd build
